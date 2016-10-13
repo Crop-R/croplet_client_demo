@@ -110,5 +110,3 @@ try:
     from local_settings import *
 except ImportError:
     raise Exception("Please copy local_settings_example.py to local_settings.py: `cp croplet_demo/local_settings_example.py croplet_demo/local_settings.py`")
-
-print 'CROPLET_API_CLIENT_ID= {}'.format(CROPLET_API_CLIENT_ID)
