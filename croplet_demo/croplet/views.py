@@ -18,7 +18,8 @@ def authorize(request):
     if hasattr(request.user, 'grant'):
         _get_access_token(request.user, request.user.grant)
     if not hasattr(request.user, 'access_token'):
-        return redirect("http://localhost:8000/oauth2/authorize/?response_type=code&client_id={}".format(settings.CROPLET_API_CLIENT_ID))
+        return redirect("{cropr_url}/oauth2/authorize/?response_type=code&client_id={client_id}".
+                        format(cropr_url=settings.CROPR_URL, client_id=settings.CROPLET_API_CLIENT_ID))
     return redirect(reverse("map"))
 
 
@@ -35,7 +36,8 @@ class MapView(LoggedInMixin, generic.TemplateView):
 
     def get_centroid_for_field(self, client_id, field_id):
         if self.request.user.access_token:
-            req = Request('http://localhost:8000/api/v3/cropfield/%s/centroid?client_id=%s' % (field_id,client_id))
+            req = Request('{cropr_url}/api/v3/cropfield/%s/centroid?client_id={client_id}'
+                          .format(cropr_url=settings.CROPR_URL, client_id=client_id))
             req.add_header('Authorization', 'Bearer %s' % self.request.user.access_token.access_token)
             req.add_header('Accept', 'application/json')
             response = urlopen(req)
@@ -61,7 +63,8 @@ class MapView(LoggedInMixin, generic.TemplateView):
         else:
             token = ''
         if token:
-            req = Request('http://localhost:8000/api/v3/cropfield/?client_id=%s' % (client_id))
+            req = Request('{cropr_url}/api/v3/cropfield/?client_id={client_id}'
+                          .format(cropr_url=settings.CROPR_URL, client_id=client_id))
             req.add_header('Authorization', 'Bearer %s' % token)
             req.add_header('Accept', 'application/json')
             try:
@@ -110,9 +113,9 @@ def _get_access_token(user, auth_code):
         'code': auth_code,
         'client_id': client_id,
         'client_secret': client_secret,
-        'redirect_uri': 'http://localhost:8080/callback/'
+        'redirect_uri': 'http://localhost:8005/callback/'
     }
-    response = requests.post('http://localhost:8000/oauth2/token/', post_data)
+    response = requests.post('{cropr_url}/oauth2/token/'.format(cropr_url=settings.CROPR_URL), post_data)
     if response.status_code != 200:
         Grant.objects.filter(user=user).delete()
     response = json.loads(response.text)

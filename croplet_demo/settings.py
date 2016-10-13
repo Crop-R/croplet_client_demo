@@ -21,6 +21,7 @@ SECRET_KEY = '21234JBasdfadfasdf232342kbnaASAHVVVZZzzzzzccRYhSsqw3tHGr'
 
 CROPLET_API_CLIENT_ID = '2DNe9SymZm6O0ukPYMAPXZr3bUsKPqepayaiFr8r' # VERVANG DIT MET UW EIGEN CLIENT ID
 CROPLET_SECRET_API_KEY = 'nAbq4X5fVFW1SV3JG5DzkDaZJl2YzImISCetTPez12m4NCc4CdmBUfLeJuvIjUXahpxnxwSOFqXKa2aMvkYi3iQfFwAw5oXmi6gmIa2yrpHKvT1yefgE9EIqhSyrQVC5' # VERVANG DIT MET UW EIGEN CLIENT SECRET
+CROPR_URL = 'http://localhost:8000'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -104,3 +105,10 @@ USE_TZ = True
 
 MEDIA_ROOT = os.path.join(BASE_DIR, '/media')
 MEDIA_URL = '/media/'
+
+try:
+    from local_settings import *
+except ImportError:
+    raise Exception("Please copy local_settings_example.py to local_settings.py: `cp croplet_demo/local_settings_example.py croplet_demo/local_settings.py`")
+
+print 'CROPLET_API_CLIENT_ID= {}'.format(CROPLET_API_CLIENT_ID)
