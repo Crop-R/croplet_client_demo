@@ -10,3 +10,23 @@ De demo applicatie haalt alle gewaspercelen op van de Crop-R account en koppelt 
 Hiervoor wordt de <a href="http://gratisweerdata.buienradar.nl/">buienradar api</a> gebruikt.
 </p>
 </div>
+
+
+<div class="well">
+    <h3>Crop-R API</h3>
+    {% if farms %}
+        <p>
+            call to <em>{{ farms_api_url }}</em> returns the following response:
+        </p>
+        <pre><code>
+        {% for farm in farms %}
+            {{ farm }}
+        {% endfor %}
+        </code></pre>
+    {% else %}
+        <p>
+        Could not request API no 'valid' access token. Try getting one <a href="{% url 'authorize' %}">here</a>.
+
+        </p>
+    {% endif %}
+</div>
