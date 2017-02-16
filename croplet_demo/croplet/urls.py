@@ -1,7 +1,7 @@
 from django.conf.urls import url
 
-from croplet_demo.croplet.views import authorize
-from views import Home, MapView, callback
+from croplet_demo.croplet.views.oauth2_views import authorize, callback
+from views.cropr_api_views import Home, MapView
 
 urlpatterns = [
     url(r'^$', Home.as_view(), name="home"),

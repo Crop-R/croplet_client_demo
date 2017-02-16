@@ -9,10 +9,8 @@ Installation
 
 1. set up virtual env
 2. install requirements:
-  1. pip install Django
-  2. pip install requests
-  3. pip install shapely
-3. rename settings.copy to settings.py
+  `pip install -r requirements.txt`
+3. rename local_settings_example.py to local_settings.py
 4. follow <a href="https://www.crop-r.com/apps/cropletdeveloper/tutorial/">the tutorial</a>
 5. copy `client_id` and `client_secret` to settings.py
 7. run ./manage.py migrate
