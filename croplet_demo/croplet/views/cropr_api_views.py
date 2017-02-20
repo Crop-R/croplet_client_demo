@@ -15,7 +15,7 @@ logger = logging.getLogger(__name__)
 
 
 class Home(TemplateView):
-    template_name = "croplet/base.html"
+    template_name = "base.html"
 
     def get_context_data(self, **kwargs):
         context = super(Home, self).get_context_data(**kwargs)
